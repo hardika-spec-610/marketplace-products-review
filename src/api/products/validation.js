@@ -59,9 +59,9 @@ const productUpdateSchema = {
   },
   description: {
     in: ["body"],
-    optional: true, // to make the rule optional
-    trim: true, //remove any leading or trailing whitespace from the parameter before validation
-    notEmpty: true, //parameter is not blank if it is present
+    optional: true,
+    trim: true,
+    notEmpty: true,
     isString: {
       errorMessage:
         "description is a mandatory field and needs to be a string!",
@@ -69,27 +69,27 @@ const productUpdateSchema = {
   },
   brand: {
     in: ["body"],
-    optional: true, // to make the rule optional
-    trim: true, //remove any leading or trailing whitespace from the parameter before validation
-    notEmpty: true, //parameter is not blank if it is present
+    optional: true,
+    trim: true,
+    notEmpty: true,
     isString: {
       errorMessage: "brand is a mandatory field and needs to be a string!",
     },
   },
   price: {
     in: ["body"],
-    optional: true, // to make the rule optional
-    trim: true, //remove any leading or trailing whitespace from the parameter before validation
-    notEmpty: true, //parameter is not blank if it is present
+    optional: true,
+    trim: true,
+    notEmpty: true,
     isInt: {
       errorMessage: "price is a mandatory field and needs to be a number!",
     },
   },
   category: {
     in: ["body"],
-    optional: true, // to make the rule optional
-    trim: true, //remove any leading or trailing whitespace from the parameter before validation
-    notEmpty: true, //parameter is not blank if it is present
+    optional: true,
+    trim: true,
+    notEmpty: true,
     isString: {
       errorMessage: "category is a mandatory field and needs to be a string!",
     },
@@ -107,12 +107,38 @@ const productUpdateSchema = {
 const reviewSchema = {
   comment: {
     in: ["body"],
+    notEmpty: true,
     isString: {
       errorMessage: "comment must be String",
     },
   },
   rate: {
     in: ["body"],
+    notEmpty: true,
+    isFloat: {
+      options: { max: 5 },
+    },
+    isIn: {
+      options: [[0, 0.5, 1, 1.5, 2, 2.5, 3, 3.5, 4, 4.5, 5]],
+      errorMessage: "Rating must be in the range of 0 to 5",
+    },
+  },
+};
+const reviewUpdateSchema = {
+  comment: {
+    in: ["body"],
+    optional: true,
+    trim: true,
+    notEmpty: true,
+    isString: {
+      errorMessage: "comment must be String",
+    },
+  },
+  rate: {
+    in: ["body"],
+    optional: true,
+    trim: true,
+    notEmpty: true,
     isFloat: {
       options: { max: 5 },
     },
@@ -126,6 +152,7 @@ const reviewSchema = {
 export const checkProductsSchema = checkSchema(productSchema);
 export const checkproductUpdateSchema = checkSchema(productUpdateSchema);
 export const checkReviewSchema = checkSchema(reviewSchema);
+export const checkReviewUpdateSchema = checkSchema(reviewUpdateSchema);
 
 export const triggerBadRequest = (req, res, next) => {
   // 1. Check if checkBooksSchema has found any error in req.body

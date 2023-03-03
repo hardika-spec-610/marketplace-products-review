@@ -1,1 +1,68 @@
-[{"name":"samsung galaxy s10","description":"A smartphone is a portable computer device that combines mobile telephone functions and computing functions into one unit.","brand":"samsung lorem product brand","price":"900","category":"smartphones","imageUrl":"https://drop.ndtv.com/TECH/product_database/images/2152017124957PM_635_nokia_3310.jpeg?downsize=*:420&output-quality=80","_id":"61fghgvclesh86gw","createdAt":"2023-03-03T11:53:06.751Z","updatedAt":"2023-03-03T12:45:29.161Z"},{"name":"iPhone","description":"somthing longer","brand":"iPhone","price":1000,"category":"smartphones","imageUrl":"http://localhost:3001/img/products/61fgh6c4leshakwj.jpg","_id":"61fgh6c4leshakwj","createdAt":"2023-03-03T11:54:58.770Z","updatedAt":"2023-03-03T13:48:46.362Z"},{"name":"samsung galaxy s10","description":"A smartphone is a portable computer device that combines mobile telephone functions and computing functions into one unit. ","brand":"samsung","price":1000,"category":"smartphones","imageUrl":"https://drop.ndtv.com/TECH/product_database/images/2152017124957PM_635_nokia_3310.jpeg?downsize=*:420&output-quality=80","_id":"61fghhn8leshg9pq","createdAt":"2023-03-03T11:59:24.205Z","updatedAt":"2023-03-03T11:59:24.205Z"},{"name":"empty product name","description":"A smartphone is a portable computer device that combines mobile telephone functions and computing functions into one unit. ","brand":"samsung","price":1000,"category":"smartphones","imageUrl":"https://drop.ndtv.com/TECH/product_database/images/2152017124957PM_635_nokia_3310.jpeg?downsize=*:420&output-quality=80","_id":"61fghiv0lesizwa1","createdAt":"2023-03-03T12:42:39.528Z","updatedAt":"2023-03-03T12:42:39.528Z"},{"name":"watch","description":"A smartwatch is a portable computer device that combines mobile telephone functions and computing functions into one unit. ","brand":"samsung","price":500,"category":"smartwatch","imageUrl":"https://drop.ndtv.com/TECH/product_database/images/2152017124957PM_635_nokia_3310.jpeg?downsize=*:420&output-quality=80","_id":"61fghjy8lesofgj6","createdAt":"2023-03-03T15:14:43.697Z","updatedAt":"2023-03-03T15:14:43.697Z"},{"name":"speacker","description":"A smartwatch is a portable computer device that combines mobile telephone functions and computing functions into one unit. ","brand":"samsung","price":250,"category":"smartspeacker","imageUrl":"https://drop.ndtv.com/TECH/product_database/images/2152017124957PM_635_nokia_3310.jpeg?downsize=*:420&output-quality=80","_id":"61fghk44lesourxc","createdAt":"2023-03-03T15:26:38.303Z","updatedAt":"2023-03-03T15:26:38.303Z"}]
+[
+    {
+        "name": "samsung galaxy s10",
+        "description": "A smartphone is a portable computer device that combines mobile telephone functions and computing functions into one unit.",
+        "brand": "samsung lorem product brand",
+        "price": "900",
+        "category": "smartphones",
+        "imageUrl": "https://drop.ndtv.com/TECH/product_database/images/2152017124957PM_635_nokia_3310.jpeg?downsize=*:420&output-quality=80",
+        "_id": "61fghgvclesh86gw",
+        "createdAt": "2023-03-03T11:53:06.751Z",
+        "updatedAt": "2023-03-03T12:45:29.161Z"
+    },
+    {
+        "name": "iPhone",
+        "description": "somthing longer",
+        "brand": "iPhone",
+        "price": 1000,
+        "category": "smartphones",
+        "imageUrl": "http://localhost:3001/img/products/61fgh6c4leshakwj.jpg",
+        "_id": "61fgh6c4leshakwj",
+        "createdAt": "2023-03-03T11:54:58.770Z",
+        "updatedAt": "2023-03-03T13:48:46.362Z"
+    },
+    {
+        "name": "samsung galaxy s10",
+        "description": "A smartphone is a portable computer device that combines mobile telephone functions and computing functions into one unit. ",
+        "brand": "samsung",
+        "price": 1000,
+        "category": "smartphones",
+        "imageUrl": "https://drop.ndtv.com/TECH/product_database/images/2152017124957PM_635_nokia_3310.jpeg?downsize=*:420&output-quality=80",
+        "_id": "61fghhn8leshg9pq",
+        "createdAt": "2023-03-03T11:59:24.205Z",
+        "updatedAt": "2023-03-03T11:59:24.205Z"
+    },
+    {
+        "name": "empty product name",
+        "description": "A smartphone is a portable computer device that combines mobile telephone functions and computing functions into one unit. ",
+        "brand": "samsung",
+        "price": 1000,
+        "category": "smartphones",
+        "imageUrl": "https://drop.ndtv.com/TECH/product_database/images/2152017124957PM_635_nokia_3310.jpeg?downsize=*:420&output-quality=80",
+        "_id": "61fghiv0lesizwa1",
+        "createdAt": "2023-03-03T12:42:39.528Z",
+        "updatedAt": "2023-03-03T12:42:39.528Z"
+    },
+    {
+        "name": "watch",
+        "description": "A smartwatch is a portable computer device that combines mobile telephone functions and computing functions into one unit. ",
+        "brand": "samsung",
+        "price": 500,
+        "category": "smartwatch",
+        "imageUrl": "https://drop.ndtv.com/TECH/product_database/images/2152017124957PM_635_nokia_3310.jpeg?downsize=*:420&output-quality=80",
+        "_id": "61fghjy8lesofgj6",
+        "createdAt": "2023-03-03T15:14:43.697Z",
+        "updatedAt": "2023-03-03T15:14:43.697Z"
+    },
+    {
+        "name": "speacker",
+        "description": "A smartwatch is a portable computer device that combines mobile telephone functions and computing functions into one unit. ",
+        "brand": "samsung",
+        "price": 250,
+        "category": "smartspeacker",
+        "imageUrl": "https://drop.ndtv.com/TECH/product_database/images/2152017124957PM_635_nokia_3310.jpeg?downsize=*:420&output-quality=80",
+        "_id": "61fghk44lesourxc",
+        "createdAt": "2023-03-03T15:26:38.303Z",
+        "updatedAt": "2023-03-03T15:26:38.303Z"
+    }
+]

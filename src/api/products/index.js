@@ -9,6 +9,7 @@ import {
 import {
   checkProductsSchema,
   checkReviewSchema,
+  checkReviewUpdateSchema,
   checkproductUpdateSchema,
   triggerBadRequest,
 } from "./validation.js";
@@ -49,7 +50,14 @@ productsRouter.post(
 productsRouter.get("/", async (req, res, next) => {
   try {
     const products = await getProducts();
-    res.send(products);
+    if (req.query && req.query.category) {
+      const filteredProducts = products.filter(
+        (p) => p.category.toLowerCase() === req.query.category.toLowerCase()
+      );
+      res.send(filteredProducts);
+    } else {
+      res.send(products);
+    }
   } catch (error) {
     next(createHttpError(500, `Server side error`));
   }
@@ -237,30 +245,42 @@ productsRouter.get("/:id/reviews/:reviewId", async (req, res, next) => {
   }
 });
 
-productsRouter.put("/:id/reviews/:reviewId", async (req, res, next) => {
-  try {
-    const productArray = await getProducts();
-    const index = productArray.findIndex(
-      (product) => product._id === req.params.id
-    );
-    // console.log("reviewGetindex", index);
-    if (index !== -1) {
-      const reviews = await getReviews();
-      // find review index?
-      const reviewIndex = reviews.findIndex(
-        (review) => review._id === req.params.reviewId
+productsRouter.put(
+  "/:id/reviews/:reviewId",
+  checkReviewUpdateSchema,
+  triggerBadRequest,
+  async (req, res, next) => {
+    try {
+      const productArray = await getProducts();
+      const index = productArray.findIndex(
+        (product) => product._id === req.params.id
       );
-      if (reviewIndex !== -1) {
-        // console.log("reviewGetindex", reviewIndex);
-        if (reviews[reviewIndex].productId === req.params.id) {
-          const updated = {
-            ...reviews[reviewIndex],
-            ...req.body,
-            updatedAt: new Date(),
-          };
-          reviews[reviewIndex] = updated;
-          await writeReviews(reviews);
-          res.send(updated);
+      // console.log("reviewGetindex", index);
+      if (index !== -1) {
+        const reviews = await getReviews();
+        // find review index?
+        const reviewIndex = reviews.findIndex(
+          (review) => review._id === req.params.reviewId
+        );
+        if (reviewIndex !== -1) {
+          // console.log("reviewGetindex", reviewIndex);
+          if (reviews[reviewIndex].productId === req.params.id) {
+            const updated = {
+              ...reviews[reviewIndex],
+              ...req.body,
+              updatedAt: new Date(),
+            };
+            reviews[reviewIndex] = updated;
+            await writeReviews(reviews);
+            res.send(updated);
+          } else {
+            next(
+              createHttpError(
+                404,
+                `Review not found with id ${req.params.reviewId} of this product with id ${req.params.id}`
+              )
+            );
+          }
         } else {
           next(
             createHttpError(
@@ -271,19 +291,14 @@ productsRouter.put("/:id/reviews/:reviewId", async (req, res, next) => {
         }
       } else {
         next(
-          createHttpError(
-            404,
-            `Review not found with id ${req.params.reviewId} of this product with id ${req.params.id}`
-          )
+          createHttpError(404, `Product not found with id ${req.params.id}`)
         );
       }
-    } else {
-      next(createHttpError(404, `Product not found with id ${req.params.id}`));
+    } catch (error) {
+      next(createHttpError(500, `Server side error`));
     }
-  } catch (error) {
-    next(createHttpError(500, `Server side error`));
   }
-});
+);
 productsRouter.delete("/:id/reviews/:reviewId", async (req, res, next) => {
   try {
     const productArray = await getProducts();
