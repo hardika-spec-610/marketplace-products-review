@@ -237,4 +237,96 @@ productsRouter.get("/:id/reviews/:reviewId", async (req, res, next) => {
   }
 });
 
+productsRouter.put("/:id/reviews/:reviewId", async (req, res, next) => {
+  try {
+    const productArray = await getProducts();
+    const index = productArray.findIndex(
+      (product) => product._id === req.params.id
+    );
+    // console.log("reviewGetindex", index);
+    if (index !== -1) {
+      const reviews = await getReviews();
+      // find review index?
+      const reviewIndex = reviews.findIndex(
+        (review) => review._id === req.params.reviewId
+      );
+      if (reviewIndex !== -1) {
+        // console.log("reviewGetindex", reviewIndex);
+        if (reviews[reviewIndex].productId === req.params.id) {
+          const updated = {
+            ...reviews[reviewIndex],
+            ...req.body,
+            updatedAt: new Date(),
+          };
+          reviews[reviewIndex] = updated;
+          await writeReviews(reviews);
+          res.send(updated);
+        } else {
+          next(
+            createHttpError(
+              404,
+              `Review not found with id ${req.params.reviewId} of this product with id ${req.params.id}`
+            )
+          );
+        }
+      } else {
+        next(
+          createHttpError(
+            404,
+            `Review not found with id ${req.params.reviewId} of this product with id ${req.params.id}`
+          )
+        );
+      }
+    } else {
+      next(createHttpError(404, `Product not found with id ${req.params.id}`));
+    }
+  } catch (error) {
+    next(createHttpError(500, `Server side error`));
+  }
+});
+productsRouter.delete("/:id/reviews/:reviewId", async (req, res, next) => {
+  try {
+    const productArray = await getProducts();
+    const index = productArray.findIndex(
+      (product) => product._id === req.params.id
+    );
+    // console.log("reviewGetindex", index);
+    if (index !== -1) {
+      const reviews = await getReviews();
+      // find review index?
+      const reviewIndex = reviews.findIndex(
+        (review) => review._id === req.params.reviewId
+      );
+      if (reviewIndex !== -1) {
+        // console.log("reviewGetindex", reviewIndex);
+        if (reviews[reviewIndex].productId === req.params.id) {
+          const remainingReview = reviews.filter(
+            (review) => review._id !== req.params.reviewId
+          );
+          await writeReviews(remainingReview);
+          res.status(204).send("review deleted");
+        } else {
+          next(
+            createHttpError(
+              404,
+              `Review not found with id ${req.params.reviewId} of this product with id ${req.params.id}`
+            )
+          );
+        }
+      } else {
+        next(
+          createHttpError(
+            404,
+            `Review not found with id ${req.params.reviewId} of this product with id ${req.params.id}`
+          )
+        );
+      }
+    } else {
+      next(createHttpError(404, `Product not found with id ${req.params.id}`));
+    }
+  } catch (error) {
+    next(createHttpError(500, `Server side error`));
+  }
+});
+
 export default productsRouter;
