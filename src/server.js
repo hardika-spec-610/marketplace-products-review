@@ -7,6 +7,7 @@ import {
   unauthorizedHandler,
   notfoundHandler,
 } from "./errorsHandlers.js";
+import productsRouter from "./api/products/index.js";
 
 const server = Express();
 const port = 3001;
@@ -27,6 +28,9 @@ server.listen(port, () => {
   console.table(listEndpoints(server));
   console.log(`Server is running on port ${port}`);
 });
+
+// ************************** ENDPOINTS ***********************
+server.use("/products", productsRouter);
 
 server.use(badRequestHandler); // 400
 server.use(unauthorizedHandler); // 401
