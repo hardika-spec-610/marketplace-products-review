@@ -1,13 +1,18 @@
 import Express from "express";
 import { getProducts, writeProducts } from "../../lib/fs-tools.js";
-import { checkBlogsSchema, triggerBadRequest } from "./validation.js";
+import {
+  checkProductsSchema,
+  checkproductUpdateSchema,
+  triggerBadRequest,
+} from "./validation.js";
 import uniqid from "uniqid";
+import createHttpError from "http-errors";
 
 const productsRouter = Express.Router();
 
 productsRouter.post(
   "/",
-  checkBlogsSchema,
+  checkProductsSchema,
   triggerBadRequest,
   async (req, res, next) => {
     try {
@@ -57,29 +62,36 @@ productsRouter.get("/:id", async (req, res, next) => {
     next(error);
   }
 });
-productsRouter.put("/:id", async (req, res, next) => {
-  try {
-    const productArray = await getProducts();
-    const index = productArray.findIndex(
-      (product) => product._id === req.params.id
-    );
-    if (index !== -1) {
-      const oldProduct = productArray[index];
-      const updatedProduct = {
-        ...oldProduct,
-        ...req.body,
-        updatedAt: new Date(),
-      };
-      productArray[index] = updatedProduct;
-      await writeProducts(productArray);
-      res.send(updatedProduct);
-    } else {
-      next(createHttpError(404, `Product with id ${req.params.id} not found!`));
+productsRouter.put(
+  "/:id",
+  checkproductUpdateSchema,
+  triggerBadRequest,
+  async (req, res, next) => {
+    try {
+      const productArray = await getProducts();
+      const index = productArray.findIndex(
+        (product) => product._id === req.params.id
+      );
+      if (index !== -1) {
+        const oldProduct = productArray[index];
+        const updatedProduct = {
+          ...oldProduct,
+          ...req.body,
+          updatedAt: new Date(),
+        };
+        productArray[index] = updatedProduct;
+        await writeProducts(productArray);
+        res.send(updatedProduct);
+      } else {
+        next(
+          createHttpError(404, `Product with id ${req.params.id} not found!`)
+        );
+      }
+    } catch (error) {
+      next(error);
     }
-  } catch (error) {
-    next(error);
   }
-});
+);
 productsRouter.delete("/:id", async (req, res, next) => {
   try {
     const productArray = await getProducts();
