@@ -38,6 +38,13 @@ const productSchema = {
       errorMessage: "category is a mandatory field and needs to be a string!",
     },
   },
+  imageUrl: {
+    in: ["body"],
+    notEmpty: true,
+    isURL: {
+      errorMessage: "imageUrl is a mandatory field",
+    },
+  },
 };
 
 const productUpdateSchema = {
@@ -87,10 +94,38 @@ const productUpdateSchema = {
       errorMessage: "category is a mandatory field and needs to be a string!",
     },
   },
+  imageUrl: {
+    in: ["body"],
+    optional: true,
+    notEmpty: true,
+    isURL: {
+      errorMessage: "imageUrl is a mandatory field",
+    },
+  },
+};
+
+const reviewSchema = {
+  comment: {
+    in: ["body"],
+    isString: {
+      errorMessage: "comment must be String",
+    },
+  },
+  rate: {
+    in: ["body"],
+    isFloat: {
+      options: { max: 5 },
+    },
+    isIn: {
+      options: [[0, 0.5, 1, 1.5, 2, 2.5, 3, 3.5, 4, 4.5, 5]],
+      errorMessage: "Rating must be in the range of 0 to 5",
+    },
+  },
 };
 
 export const checkProductsSchema = checkSchema(productSchema);
 export const checkproductUpdateSchema = checkSchema(productUpdateSchema);
+export const checkReviewSchema = checkSchema(reviewSchema);
 
 export const triggerBadRequest = (req, res, next) => {
   // 1. Check if checkBooksSchema has found any error in req.body

@@ -8,9 +8,11 @@ import {
   notfoundHandler,
 } from "./errorsHandlers.js";
 import productsRouter from "./api/products/index.js";
+import { join } from "path";
 
 const server = Express();
 const port = 3001;
+const publicFolderPath = join(process.cwd(), "./public");
 
 const loggerMiddleware = (req, res, next) => {
   console.log(
@@ -20,6 +22,7 @@ const loggerMiddleware = (req, res, next) => {
   next();
 };
 
+server.use(Express.static(publicFolderPath));
 server.use(cors());
 server.use(loggerMiddleware);
 server.use(Express.json());
