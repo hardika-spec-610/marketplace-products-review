@@ -264,28 +264,19 @@ productsRouter.put(
         );
         if (reviewIndex !== -1) {
           // console.log("reviewGetindex", reviewIndex);
-          if (reviews[reviewIndex].productId === req.params.id) {
-            const updated = {
-              ...reviews[reviewIndex],
-              ...req.body,
-              updatedAt: new Date(),
-            };
-            reviews[reviewIndex] = updated;
-            await writeReviews(reviews);
-            res.send(updated);
-          } else {
-            next(
-              createHttpError(
-                404,
-                `Review not found with id ${req.params.reviewId} of this product with id ${req.params.id}`
-              )
-            );
-          }
+          const updated = {
+            ...reviews[reviewIndex],
+            ...req.body,
+            updatedAt: new Date(),
+          };
+          reviews[reviewIndex] = updated;
+          await writeReviews(reviews);
+          res.send(updated);
         } else {
           next(
             createHttpError(
               404,
-              `Review not found with id ${req.params.reviewId} of this product with id ${req.params.id}`
+              `Review not found with id ${req.params.reviewId}`
             )
           );
         }

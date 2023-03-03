@@ -5,6 +5,7 @@ const productSchema = {
   name: {
     in: ["body"],
     notEmpty: true,
+    trim: true,
     isString: {
       errorMessage: "name is a mandatory field and needs to be a string!",
     },
@@ -12,6 +13,7 @@ const productSchema = {
   description: {
     in: ["body"],
     notEmpty: true,
+    trim: true,
     isString: {
       errorMessage:
         "description is a mandatory field and needs to be a string!",
@@ -20,6 +22,7 @@ const productSchema = {
   brand: {
     in: ["body"],
     notEmpty: true,
+    trim: true,
     isString: {
       errorMessage: "brand is a mandatory field and needs to be a string!",
     },
@@ -27,6 +30,7 @@ const productSchema = {
   price: {
     in: ["body"],
     notEmpty: true,
+    trim: true,
     isInt: {
       errorMessage: "price is a mandatory field and needs to be a number!",
     },
@@ -34,6 +38,7 @@ const productSchema = {
   category: {
     in: ["body"],
     notEmpty: true,
+    trim: true,
     isString: {
       errorMessage: "category is a mandatory field and needs to be a string!",
     },
@@ -41,6 +46,7 @@ const productSchema = {
   imageUrl: {
     in: ["body"],
     notEmpty: true,
+    trim: true,
     isURL: {
       errorMessage: "imageUrl is a mandatory field",
     },
