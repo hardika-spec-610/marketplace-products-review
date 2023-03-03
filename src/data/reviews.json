@@ -1,9 +1,1 @@
-[
-    {
-        "comment": "good phone",
-        "rate": 4,
-        "productId": "61fghgvclesh86gw",
-        "createdAt": "2023-03-03T13:19:51.780Z",
-        "updatedAt": "2023-03-03T13:19:51.780Z"
-    }
-]
+[{"comment":"f we provided top-notch service to you today, please consider taking a few seconds to leave us a review.","rate":2.5,"productId":"61fghhn8leshg9pq","_id":"61fghjpolesm4d8z","createdAt":"2023-03-03T14:10:06.994Z","updatedAt":"2023-03-03T14:10:06.994Z"},{"comment":"service to you today, please consider taking a few seconds to leave us a review.","rate":5,"productId":"61fgh6c4leshakwj","_id":"61fgh8w0lesmgujh","createdAt":"2023-03-03T14:19:49.276Z","updatedAt":"2023-03-03T14:19:49.276Z"},{"comment":"diffrent product.","rate":1.5,"productId":"61fghiv0lesizwa1","_id":"61fghm2glesmy6b8","createdAt":"2023-03-03T14:33:17.683Z","updatedAt":"2023-03-03T14:33:17.683Z"},{"comment":"diffrent product second review.","rate":3.5,"productId":"61fghiv0lesizwa1","_id":"61fghm2glesn0rap","createdAt":"2023-03-03T14:35:18.193Z","updatedAt":"2023-03-03T14:35:18.193Z"}]
