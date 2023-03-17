@@ -92,6 +92,41 @@ productRouter.delete("/:id", async (req, res, next) => {
   }
 });
 
+const cloudinaryUploader = multer({
+  storage: new CloudinaryStorage({
+    cloudinary, // cloudinary is going to search for smth in .env vars called process.env.CLOUDINARY_URL
+    params: {
+      folder: "Market place products/products",
+    },
+  }),
+}).single("imageUrl");
+
+productRouter.post(
+  "/:id/upload",
+  cloudinaryUploader,
+  async (req, res, next) => {
+    try {
+      const product = await ProductsModel.findByIdAndUpdate(
+        req.params.id,
+        { imageUrl: req.file.path },
+        { new: true, runValidators: true }
+      );
+      console.log("FILE:", req.file);
+      const category = product.category;
+      console.log("category:", category);
+      if (product) {
+        res.send(product);
+      } else {
+        next(
+          createHttpError(404, `Product with id ${req.params.id} not found!`)
+        );
+      }
+    } catch (error) {
+      next(error);
+    }
+  }
+);
+
 // ____________________Reviews_________________________
 
 productRouter.post("/:id/reviews", async (req, res, next) => {
