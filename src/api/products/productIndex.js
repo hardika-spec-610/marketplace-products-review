@@ -92,4 +92,71 @@ productRouter.delete("/:id", async (req, res, next) => {
   }
 });
 
+// ____________________Reviews_________________________
+
+productRouter.post("/:id/reviews", async (req, res, next) => {
+  try {
+    const products = await ProductsModel.findById(req.params.id);
+    if (products) {
+      const review = req.body;
+      const updatedProduct = await ProductsModel.findByIdAndUpdate(
+        req.params.id,
+        {
+          $push: { reviews: review },
+        },
+        { new: true, runValidators: true }
+      );
+      console.log("updatedProduct", updatedProduct);
+      if (updatedProduct) {
+        res.send(updatedProduct);
+      } else {
+        next(createHttpError(404, `Product has not reviews`));
+      }
+    } else {
+      next(createHttpError(404, `Product with id ${req.params.id} not found!`));
+    }
+  } catch (error) {
+    next(error);
+  }
+});
+
+productRouter.get("/:id/reviews", async (req, res, next) => {
+  try {
+    const products = await ProductsModel.findById(req.params.id);
+    if (products) {
+      res.send(products.reviews);
+    } else {
+      next(createHttpError(404, `Product with id ${req.params.id} not found`));
+    }
+  } catch (error) {
+    next(error);
+  }
+});
+
+productRouter.get("/:id/reviews/:reviewId", async (req, res, next) => {
+  try {
+    const products = await ProductsModel.findById(req.params.id);
+    if (products) {
+      // console.log("product reviews", products.reviews);
+      const selectedReview = products.reviews.find(
+        (r) => r._id.toString() === req.params.reviewId
+      );
+      if (selectedReview) {
+        res.send(selectedReview);
+      } else {
+        next(
+          createHttpError(
+            404,
+            `Review with id ${req.params.reviewId} not found`
+          )
+        );
+      }
+    } else {
+      next(createHttpError(404, `Product with id ${req.params.id} not found`));
+    }
+  } catch (error) {
+    next(error);
+  }
+});
+
 export default productRouter;
