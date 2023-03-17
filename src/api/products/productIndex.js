@@ -159,4 +159,51 @@ productRouter.get("/:id/reviews/:reviewId", async (req, res, next) => {
   }
 });
 
+productRouter.put("/:id/reviews/:reviewId", async (req, res, next) => {
+  try {
+    const products = await ProductsModel.findById(req.params.id);
+    if (products) {
+      const index = products.reviews.findIndex(
+        (r) => r._id.toString() === req.params.reviewId
+      );
+      if (index !== -1) {
+        products.reviews[index] = {
+          ...products.reviews[index].toObject(),
+          updatedAt: new Date(),
+          ...req.body,
+        };
+        await products.save();
+        res.send(products);
+      } else {
+        next(
+          createHttpError(
+            404,
+            `Review with id ${req.params.reviewId} not found`
+          )
+        );
+      }
+    } else {
+      next(createHttpError(404, `Product with id ${req.params.id} not found`));
+    }
+  } catch (error) {
+    next(error);
+  }
+});
+
+productRouter.delete("/:id/reviews/:reviewId", async (req, res, next) => {
+  try {
+    const products = await ProductsModel.findByIdAndUpdate(
+      req.params.id,
+      { $pull: { reviews: { _id: req.params.reviewId } } },
+      { new: true, runValidators: true }
+    );
+    if (products) {
+      res.send();
+    } else {
+      next(createHttpError(404, `Product with id ${req.params.id} not found`));
+    }
+  } catch (error) {
+    next(error);
+  }
+});
 export default productRouter;
